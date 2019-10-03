@@ -1,0 +1,32 @@
+---
+title: "hw-2"
+author: "Youngjoo son"
+output: html_document
+---
+
+```{r}
+library(shiny)
+library(shinythemes)
+library(leaflet)
+library(leaflet.extras)
+library(rgdal)
+```
+
+```{r}
+subway <- readOGR("SubwayEntrances.geojson")
+#plot(subway)
+
+
+
+leaflet(data = subway) %>%
+  addProviderTiles("Esri.WorldTerrain") %>%
+  addMarkers()
+  #addPolygons(color = ~pal(`OST_PER_UOM`)) 
+```
+
+```{r}
+# pal <- colorNumeric(
+#   palette = "Purples",
+#   domain = forest$`OST_PER_UOM`)
+```
+
