@@ -25,6 +25,12 @@ leaflet(data = subway) %>%
 ```
 
 ```{r}
+school <- readOGR("SchoolDistricts.geojson")
+
+leaflet(data = subway) %>%
+  addProviderTiles("Esri.WorldTerrain") %>%
+  addPolygons()
+
 # pal <- colorNumeric(
 #   palette = "Purples",
 #   domain = forest$`OST_PER_UOM`)
