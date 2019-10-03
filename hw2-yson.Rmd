@@ -11,31 +11,37 @@ library(leaflet)
 library(leaflet.extras)
 library(rgdal)
 ```
+## Subway Entraces in Newyork
 
 ```{r}
+# read data
 subway <- readOGR("SubwayEntrances.geojson")
-#plot(subway)
 
-
-
+# map with markers
 leaflet(data = subway) %>%
   addProviderTiles("Esri.WorldTerrain") %>%
   addMarkers()
-  #addPolygons(color = ~pal(`OST_PER_UOM`)) 
 ```
 
+## School Distrct in Newyork
+
 ```{r}
+# read data
 school <- readOGR("SchoolDistricts.geojson")
 
+# polygon map
 leaflet(data = school) %>%
   addProviderTiles("Esri.WorldTerrain") %>%
   addPolygons()
-
-
 ```
+
+## Subway Lines in Newyork
+
 ```{r}
+# read data
 subwaylines <- readOGR("SubwayLines.geojson")
 
+# polyline map
 leaflet(data = subwaylines) %>%
   addProviderTiles("Esri.WorldTerrain", group = "Esri") %>%
   addProviderTiles("OpenTopoMap", group = "Topo") %>%
@@ -48,7 +54,10 @@ leaflet(data = subwaylines) %>%
   )
 ```
 
+## Projects in Construction in Newyork
+
 ```{r}
+# read data
 cons <- read.csv("Projects_in_Construction.csv")
 
 # Define color factor
@@ -56,7 +65,9 @@ palcons <- colorFactor(c("#d73027", "#1a9850"), c("CAP", "CIP"))
 
 leaflet(data = cons) %>%
   addProviderTiles("OpenStreetMap.DE") %>%
+  # Add markers
   addCircleMarkers(lng = ~Longitude, lat = ~Latitude, radius = 1.5, color = ~palcons(Project.type), clusterOptions = markerClusterOptions()) %>%
+  # Add legend
   addLegend(position = "topright" , pal = palcons, values = cons$Project.type, title = "Project type")
 ```
 
