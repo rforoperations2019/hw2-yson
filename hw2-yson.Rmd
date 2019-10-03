@@ -31,9 +31,7 @@ leaflet(data = school) %>%
   addProviderTiles("Esri.WorldTerrain") %>%
   addPolygons()
 
-# pal <- colorNumeric(
-#   palette = "Purples",
-#   domain = forest$`OST_PER_UOM`)
+
 ```
 ```{r}
 subwaylines <- readOGR("SubwayLines.geojson")
@@ -48,5 +46,17 @@ leaflet(data = subwaylines) %>%
     baseGroups = c("Esri", "Topo", "Watercolor"),
     options = layersControlOptions(collapsed = FALSE)
   )
+```
+
+```{r}
+cons <- read.csv("Projects_in_Construction.csv")
+
+# Define color factor
+palcons <- colorFactor(c("#d73027", "#1a9850"), c("CAP", "CIP"))
+
+leaflet(data = cons) %>%
+  addProviderTiles("OpenStreetMap.DE") %>%
+  addCircleMarkers(lng = ~Longitude, lat = ~Latitude, radius = 1.5, color = ~palcons(Project.type), clusterOptions = markerClusterOptions()) %>%
+  addLegend(position = "topright" , pal = palcons, values = cons$Project.type, title = "Project type")
 ```
 
