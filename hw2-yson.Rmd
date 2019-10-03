@@ -27,12 +27,26 @@ leaflet(data = subway) %>%
 ```{r}
 school <- readOGR("SchoolDistricts.geojson")
 
-leaflet(data = subway) %>%
+leaflet(data = school) %>%
   addProviderTiles("Esri.WorldTerrain") %>%
   addPolygons()
 
 # pal <- colorNumeric(
 #   palette = "Purples",
 #   domain = forest$`OST_PER_UOM`)
+```
+```{r}
+subwaylines <- readOGR("SubwayLines.geojson")
+
+leaflet(data = subwaylines) %>%
+  addProviderTiles("Esri.WorldTerrain", group = "Esri") %>%
+  addProviderTiles("OpenTopoMap", group = "Topo") %>%
+  addProviderTiles("Stamen.Watercolor", group = "Watercolor") %>%
+  addPolylines() %>%
+  # Add layers control
+  addLayersControl(
+    baseGroups = c("Esri", "Topo", "Watercolor"),
+    options = layersControlOptions(collapsed = FALSE)
+  )
 ```
 
